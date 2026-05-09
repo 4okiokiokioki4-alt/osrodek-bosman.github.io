@@ -32,6 +32,8 @@
 
     html {
       scroll-behavior: smooth;
+      max-width: 100%;
+      overflow-x: hidden;
     }
 
     body {
@@ -42,6 +44,8 @@
         radial-gradient(circle at top right, rgba(46, 125, 143, 0.18), transparent 30rem),
         var(--bg);
       line-height: 1.6;
+      max-width: 100%;
+      overflow-x: hidden;
     }
 
     a {
@@ -108,6 +112,7 @@
       padding: 10px 14px;
       border-radius: 999px;
       transition: 0.2s ease;
+      white-space: nowrap;
     }
 
     .nav-links a:hover {
@@ -543,15 +548,134 @@
       text-align: center;
     }
 
-    @media (max-width: 920px) {
-      .hero-grid,
-      .about-grid,
-      .contact-grid {
+    @media (max-width: 980px) {
+      .container {
+        width: min(100% - 32px, 1140px);
+      }
+
+      .topbar {
+        position: relative;
+      }
+
+      .nav {
+        min-height: auto;
+        padding: 18px 0;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 18px;
+      }
+
+      .logo {
+        width: 100%;
+      }
+
+      .logo-img {
+        width: 48px;
+        height: 48px;
+      }
+
+      .logo-text {
+        font-size: 1.35rem;
+      }
+
+      .nav-links {
+        width: 100%;
+        display: grid;
+        grid-template-columns: repeat(5, auto);
+        justify-content: space-between;
+        gap: 8px;
+        overflow: visible;
+        font-size: 0.95rem;
+      }
+
+      .nav-links a {
+        padding: 8px 6px;
+        white-space: nowrap;
+      }
+
+      .hero {
+        padding: 48px 0 36px;
+      }
+
+      .hero-grid {
         grid-template-columns: 1fr;
+        gap: 32px;
+      }
+
+      .eyebrow {
+        font-size: 0.82rem;
+        padding: 8px 12px;
+        max-width: 100%;
+      }
+
+      h1 {
+        font-size: clamp(2.35rem, 11vw, 4rem);
+        line-height: 1.04;
+        letter-spacing: -0.045em;
+        margin-bottom: 22px;
+      }
+
+      .hero p {
+        font-size: 1.05rem;
+        line-height: 1.7;
+      }
+
+      .hero-actions {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 12px;
+      }
+
+      .btn {
+        width: 100%;
+        min-height: 54px;
+        font-size: 1rem;
+      }
+
+      .hero-stats {
+        grid-template-columns: 1fr;
+        gap: 14px;
+      }
+
+      .stat {
+        padding: 22px;
+      }
+
+      .stat strong {
+        font-size: 1.65rem;
       }
 
       .hero-card {
-        min-height: 390px;
+        min-height: 420px;
+        border-radius: 30px;
+        padding: 22px;
+      }
+
+      .floating-card {
+        padding: 22px;
+        border-radius: 24px;
+      }
+
+      .floating-card h2 {
+        font-size: 1.65rem;
+      }
+
+      .section {
+        padding: 54px 0;
+      }
+
+      .section-header {
+        margin-bottom: 26px;
+      }
+
+      h2 {
+        font-size: clamp(1.9rem, 8vw, 2.8rem);
+        letter-spacing: -0.04em;
+      }
+
+      .about-grid,
+      .contact-grid {
+        grid-template-columns: 1fr;
       }
 
       .grid-3,
@@ -564,7 +688,11 @@
       }
 
       .gallery-grid {
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: 1fr;
+      }
+
+      .gallery-item {
+        min-height: 240px;
       }
 
       .map-box {
@@ -576,31 +704,31 @@
       }
     }
 
-    @media (max-width: 720px) {
-      .nav {
-        align-items: flex-start;
-        flex-direction: column;
-        padding: 16px 0;
+    @media (max-width: 430px) {
+      .container {
+        width: min(100% - 28px, 1140px);
       }
 
       .nav-links {
-        width: 100%;
-        overflow-x: auto;
-        padding-bottom: 4px;
+        font-size: 0.88rem;
+        gap: 4px;
       }
 
-      .hero {
-        padding-top: 52px;
+      .nav-links a {
+        padding: 7px 3px;
       }
 
-      .hero-stats,
-      .activities-grid,
-      .gallery-grid {
-        grid-template-columns: 1fr;
+      h1 {
+        font-size: 2.75rem;
+        letter-spacing: -0.055em;
       }
 
-      .section {
-        padding: 52px 0;
+      .hero p {
+        font-size: 1rem;
+      }
+
+      .hero-card {
+        min-height: 360px;
       }
     }
   </style>
@@ -836,7 +964,7 @@
           <div class="gallery-item" style="--gallery-img: url('img/domki.jpg')">Domki</div>
           <div class="gallery-item" style="--gallery-img: url('img/plaza.jpg')">Plaża</div>
           <div class="gallery-item" style="--gallery-img: url('img/jeziorak.jpg')">Jeziorak</div>
-          <div class="gallery-item" style="--gallery-img: url('img/placzabaw.jpg')">Plac zabaw</div>
+          <div class="gallery-item" style="--gallery-img: url('img/plac-zabaw.jpg')">Plac zabaw</div>
           <div class="gallery-item" style="--gallery-img: url('img/bar.jpg')">Bar</div>
           <div class="gallery-item" style="--gallery-img: url('img/pomost.jpg')">Pomost</div>
           <div class="gallery-item" style="--gallery-img: url('img/ognisko.jpg')">Ognisko</div>

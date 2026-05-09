@@ -1,0 +1,907 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BOSMAN - Ośrodek wypoczynkowy na Jezioraku</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --bg: #f8f5ef;
+      --text: #241a14;
+      --muted: #6f625b;
+      --brand: #8b3600;
+      --brand-dark: #5b2200;
+      --brand-soft: #f0d7c2;
+      --lake: #2e7d8f;
+      --lake-dark: #155263;
+      --white: #ffffff;
+      --shadow: 0 24px 60px rgba(53, 30, 15, 0.13);
+      --radius: 28px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: "Manrope", Arial, sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at top left, rgba(139, 54, 0, 0.18), transparent 34rem),
+        radial-gradient(circle at top right, rgba(46, 125, 143, 0.18), transparent 30rem),
+        var(--bg);
+      line-height: 1.6;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .container {
+      width: min(1140px, calc(100% - 36px));
+      margin: 0 auto;
+    }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      background: rgba(248, 245, 239, 0.92);
+      border-bottom: 1px solid rgba(139, 54, 0, 0.12);
+      backdrop-filter: blur(18px);
+    }
+
+    .nav {
+      min-height: 76px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      color: var(--brand-dark);
+    }
+
+    .logo-img {
+      width: 52px;
+      height: 52px;
+      object-fit: contain;
+      display: block;
+      border-radius: 12px;
+    }
+
+    .logo-text {
+      font-size: 1.3rem;
+      font-weight: 700;
+      letter-spacing: -0.04em;
+      color: var(--brand-dark);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      list-style: none;
+      color: var(--muted);
+      font-size: 0.95rem;
+      font-weight: 600;
+    }
+
+    .nav-links a {
+      display: inline-flex;
+      padding: 10px 14px;
+      border-radius: 999px;
+      transition: 0.2s ease;
+    }
+
+    .nav-links a:hover {
+      background: var(--brand-soft);
+      color: var(--brand-dark);
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 48px;
+      padding: 0 22px;
+      border-radius: 999px;
+      font-weight: 800;
+      transition: 0.22s ease;
+    }
+
+    .btn-primary {
+      color: var(--white);
+      background: linear-gradient(135deg, var(--brand), var(--brand-dark));
+      box-shadow: 0 18px 34px rgba(91, 34, 0, 0.26);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 24px 40px rgba(91, 34, 0, 0.32);
+    }
+
+    .btn-outline {
+      color: var(--brand-dark);
+      background: rgba(255, 255, 255, 0.72);
+      border: 1px solid rgba(139, 54, 0, 0.2);
+    }
+
+    .hero {
+      padding: 82px 0 54px;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      align-items: center;
+      gap: 42px;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.72);
+      color: var(--lake-dark);
+      border: 1px solid rgba(46, 125, 143, 0.18);
+      font-weight: 800;
+      font-size: 0.86rem;
+      margin-bottom: 22px;
+    }
+
+    h1 {
+      max-width: 820px;
+      font-size: clamp(2rem, 6.5vw, 5.9rem);
+      line-height: 1.1;
+      letter-spacing: -0.07em;
+      margin-bottom: 24px;
+    }
+
+    .hero p {
+      max-width: 650px;
+      color: var(--muted);
+      font-size: 1.15rem;
+      margin-bottom: 30px;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-bottom: 36px;
+    }
+
+    .hero-stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      max-width: 680px;
+    }
+
+    .stat {
+      padding: 18px;
+      border-radius: 22px;
+      background: rgba(255, 255, 255, 0.72);
+      border: 1px solid rgba(139, 54, 0, 0.13);
+    }
+
+    .stat strong {
+      display: block;
+      font-size: 1.45rem;
+      color: var(--brand-dark);
+      line-height: 1.1;
+    }
+
+    .stat span {
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    .hero-card {
+      min-height: 530px;
+      border-radius: 42px;
+      overflow: hidden;
+      background:
+        linear-gradient(rgba(0, 0, 0, 0.30), rgba(0, 0, 0, 0.55)),
+        url("img/dron.jpg");
+      background-size: cover;
+      background-position: center;
+      box-shadow: var(--shadow);
+      padding: 32px;
+      color: var(--white);
+      position: relative;
+      display: flex;
+      align-items: flex-end;
+    }
+
+    .floating-card {
+      position: relative;
+      z-index: 1;
+      margin-top: 0;
+      padding: 26px;
+      border-radius: 30px;
+      background: rgba(0, 0, 0, 0.35);
+      border: 1px solid rgba(255, 255, 255, 0.22);
+      backdrop-filter: blur(10px);
+    }
+
+    .floating-card h2 {
+      font-size: 2rem;
+      line-height: 1.05;
+      margin-bottom: 14px;
+      color: white;
+    }
+
+    .floating-card p {
+      color: rgba(255, 255, 255, 0.9);
+      margin: 0;
+      font-size: 1rem;
+    }
+
+    .section {
+      padding: 72px 0;
+    }
+
+    .section-header {
+      max-width: 760px;
+      margin-bottom: 34px;
+    }
+
+    .section-kicker {
+      color: var(--brand);
+      font-weight: 900;
+      text-transform: uppercase;
+      font-size: 0.8rem;
+      letter-spacing: 0.16em;
+      margin-bottom: 10px;
+    }
+
+    h2 {
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      line-height: 1.05;
+      letter-spacing: -0.04em;
+      margin-bottom: 16px;
+    }
+
+    .section-header p {
+      color: var(--muted);
+      font-size: 1.08rem;
+    }
+
+    .card {
+      background: rgba(255, 255, 255, 0.78);
+      border: 1px solid rgba(139, 54, 0, 0.12);
+      border-radius: var(--radius);
+      box-shadow: 0 18px 48px rgba(53, 30, 15, 0.08);
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 0.9fr 1.1fr;
+      gap: 24px;
+    }
+
+    .feature-panel {
+      min-height: 420px;
+      padding: 30px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      background:
+        linear-gradient(rgba(0, 0, 0, 0.20), rgba(0, 0, 0, 0.55)),
+        url("img/jeziorko.jpg");
+      background-size: cover;
+      background-position: center;
+      color: var(--white);
+      overflow: hidden;
+    }
+
+    .feature-panel h2,
+    .feature-panel p {
+      color: white;
+      text-shadow: 0 3px 12px rgba(0, 0, 0, 0.55);
+    }
+
+    .about-content {
+      padding: 32px;
+    }
+
+    .about-content p + p {
+      margin-top: 18px;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .offer-card {
+      padding: 26px;
+      transition: 0.2s ease;
+    }
+
+    .offer-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow);
+    }
+
+    .icon {
+      width: 54px;
+      height: 54px;
+      display: grid;
+      place-items: center;
+      border-radius: 18px;
+      background: var(--brand-soft);
+      color: var(--brand-dark);
+      font-size: 1.45rem;
+      margin-bottom: 20px;
+    }
+
+    .offer-card h3 {
+      font-size: 1.25rem;
+      margin-bottom: 10px;
+    }
+
+    .offer-card p,
+    .offer-card li {
+      color: var(--muted);
+    }
+
+    .price-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .price-card {
+      padding: 30px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .price-card.featured {
+      color: var(--white);
+      background: linear-gradient(135deg, var(--brand), var(--brand-dark));
+      transform: scale(1.03);
+    }
+
+    .price-card.featured p,
+    .price-card.featured span {
+      color: rgba(255, 255, 255, 0.78);
+    }
+
+    .price {
+      font-size: 2.5rem;
+      font-weight: 900;
+      letter-spacing: -0.05em;
+      margin: 10px 0;
+    }
+
+    .price span {
+      font-size: 1rem;
+      font-weight: 700;
+      letter-spacing: 0;
+      color: var(--muted);
+    }
+
+    .list {
+      display: grid;
+      gap: 12px;
+      margin-top: 18px;
+      list-style: none;
+    }
+
+    .list li {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+    }
+
+    .list li::before {
+      content: "✓";
+      flex: 0 0 24px;
+      width: 24px;
+      height: 24px;
+      border-radius: 999px;
+      display: grid;
+      place-items: center;
+      background: rgba(46, 125, 143, 0.14);
+      color: var(--lake-dark);
+      font-weight: 900;
+      font-size: 0.82rem;
+    }
+
+    .price-card.featured .list li::before {
+      background: rgba(255, 255, 255, 0.2);
+      color: var(--white);
+    }
+
+    .activities {
+      padding: 34px;
+    }
+
+    .activities-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 14px;
+      list-style: none;
+    }
+
+    .activities-grid li {
+      padding: 18px;
+      border-radius: 22px;
+      background: #fffaf2;
+      color: var(--muted);
+      border: 1px solid rgba(139, 54, 0, 0.1);
+    }
+
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+    }
+
+    .gallery-item {
+      min-height: 220px;
+      border-radius: 26px;
+      padding: 20px;
+      color: var(--white);
+      display: flex;
+      align-items: end;
+      font-weight: 900;
+      letter-spacing: -0.02em;
+      background:
+        linear-gradient(rgba(0, 0, 0, 0.06), rgba(0, 0, 0, 0.62)),
+        var(--gallery-img);
+      background-size: cover;
+      background-position: center;
+      box-shadow: 0 18px 42px rgba(53, 30, 15, 0.12);
+      overflow: hidden;
+      transition: 0.25s ease;
+    }
+
+    .gallery-item:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--shadow);
+    }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 0.95fr 1.05fr;
+      gap: 22px;
+      align-items: stretch;
+    }
+
+    .contact-card {
+      padding: 32px;
+    }
+
+    .contact-list {
+      display: grid;
+      gap: 16px;
+      margin-top: 22px;
+      list-style: none;
+    }
+
+    .contact-list li {
+      display: grid;
+      gap: 4px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid rgba(139, 54, 0, 0.12);
+    }
+
+    .contact-list strong {
+      color: var(--brand-dark);
+    }
+
+    .contact-list span,
+    .contact-list a {
+      color: var(--muted);
+    }
+
+    .map-box {
+      height: 100%;
+      min-height: 100%;
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      border: 1px solid rgba(139, 54, 0, 0.12);
+      background: white;
+    }
+
+    .map-box iframe {
+      display: block;
+      width: 100%;
+      height: 100%;
+      min-height: 100%;
+      border: 0;
+    }
+
+    footer {
+      margin-top: 60px;
+      padding: 34px 0;
+      color: rgba(255, 255, 255, 0.72);
+      background: var(--brand-dark);
+      text-align: center;
+    }
+
+    @media (max-width: 920px) {
+      .hero-grid,
+      .about-grid,
+      .contact-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-card {
+        min-height: 390px;
+      }
+
+      .grid-3,
+      .price-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .price-card.featured {
+        transform: none;
+      }
+
+      .gallery-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .map-box {
+        min-height: 430px;
+      }
+
+      .map-box iframe {
+        height: 430px;
+      }
+    }
+
+    @media (max-width: 720px) {
+      .nav {
+        align-items: flex-start;
+        flex-direction: column;
+        padding: 16px 0;
+      }
+
+      .nav-links {
+        width: 100%;
+        overflow-x: auto;
+        padding-bottom: 4px;
+      }
+
+      .hero {
+        padding-top: 52px;
+      }
+
+      .hero-stats,
+      .activities-grid,
+      .gallery-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .section {
+        padding: 52px 0;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header class="topbar">
+    <div class="container nav">
+      <a href="#top" class="logo">
+        <img src="img/dbosman.png" alt="Logo BOSMAN" class="logo-img" />
+        <span class="logo-text">BOSMAN</span>
+      </a>
+
+      <nav>
+        <ul class="nav-links">
+          <li><a href="#onas">O nas</a></li>
+          <li><a href="#oferta">Oferta</a></li>
+          <li><a href="#cennik">Cennik</a></li>
+          <li><a href="#galeria">Galeria</a></li>
+          <li><a href="#kontakt">Kontakt</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div class="container hero-grid">
+        <div>
+          <div class="eyebrow">🌊 Ośrodek wypoczynkowy na Jezioraku</div>
+
+          <h1>Wypoczynek na wyspie Wielka Żuława</h1>
+
+          <p>
+            Drewniane domki, cisza, natura, prywatna plaża i atrakcje dla całej rodziny.
+            BOSMAN to spokojne miejsce dla osób, które szukają prawdziwego odpoczynku nad wodą.
+          </p>
+
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#kontakt">Zarezerwuj pobyt</a>
+            <a class="btn btn-outline" href="#oferta">Zobacz ofertę</a>
+          </div>
+
+          <div class="hero-stats">
+            <div class="stat">
+              <strong>2-5</strong>
+              <span>osobowe domki</span>
+            </div>
+            <div class="stat">
+              <strong>0 zł</strong>
+              <span>parking dla gości</span>
+            </div>
+            <div class="stat">
+              <strong>maj-wrz</strong>
+              <span>sezon działania</span>
+            </div>
+          </div>
+        </div>
+
+        <aside class="hero-card">
+          <div class="floating-card">
+            <h2>Spokojny klimat, jezioro i natura</h2>
+            <p>
+              Ośrodek znajduje się na największej wyspie śródlądowej w Polsce,
+              w otoczeniu Parku Krajobrazowego Pojezierza Iławskiego.
+            </p>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section" id="onas">
+      <div class="container">
+        <div class="section-header">
+          <div class="section-kicker">O nas</div>
+          <h2>Miejsce dla osób, które chcą odpocząć od hałasu</h2>
+          <p>
+            Ośrodek Wypoczynkowy BOSMAN położony jest w Iławie na wyspie Wielka Żuława,
+            nad najdłuższym jeziorem w Polsce — Jeziorakiem.
+          </p>
+        </div>
+
+        <div class="about-grid">
+          <div class="card feature-panel">
+            <div>
+              <h2>Wyspa, jezioro, spokój</h2>
+              <p>
+                Idealne miejsce dla rodzin, par i osób ceniących naturę, ciszę oraz kameralny wypoczynek.
+              </p>
+            </div>
+          </div>
+
+          <div class="card about-content">
+            <p>
+              Gościom oferujemy drewniane domki 2, 4 i 5 osobowe.
+              Każdy domek posiada łazienkę z prysznicem i WC, telewizor, lodówkę,
+              czajnik elektryczny, naczynia oraz sztućce.
+            </p>
+            <p>
+              Domki 4 i 5 osobowe wyposażone są dodatkowo w aneks kuchenny z kuchenką gazową,
+              garnkami oraz patelnią. Akceptujemy zwierzęta domowe bez dodatkowych opłat.
+            </p>
+            <p>
+              Rezerwacja odbywa się na podstawie zaliczki w wysokości 30% wartości pobytu.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="oferta">
+      <div class="container">
+        <div class="section-header">
+          <div class="section-kicker">Oferta</div>
+          <h2>Wszystko, czego potrzeba do wypoczynku nad jeziorem</h2>
+          <p>
+            Na miejscu dostępne są atrakcje dla dzieci, przestrzeń rekreacyjna,
+            sprzęt wodny, bar oraz własna plaża z pomostem.
+          </p>
+        </div>
+
+        <div class="grid-3">
+          <article class="card offer-card">
+            <div class="icon">🏡</div>
+            <h3>Domki wypoczynkowe</h3>
+            <p>
+              Domki 2, 4 i 5 osobowe z łazienką, wyposażeniem kuchennym
+              i miejscem do wypoczynku przed domkiem.
+            </p>
+          </article>
+
+          <article class="card offer-card">
+            <div class="icon">🚣</div>
+            <h3>Sprzęt wodny</h3>
+            <p>
+              Kajaki, łódki wiosłowe, rowery wodne, motorówka bez uprawnień
+              oraz akcesoria plażowe.
+            </p>
+          </article>
+
+          <article class="card offer-card">
+            <div class="icon">🔥</div>
+            <h3>Strefa rekreacji</h3>
+            <p>
+              Plac zabaw, boiska, bilard, tenis stołowy, miejsce na ognisko,
+              gry planszowe i mini biblioteka.
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="cennik">
+      <div class="container">
+        <div class="section-header">
+          <div class="section-kicker">Cennik</div>
+          <h2>Prosty cennik domków</h2>
+          <p>Ceny podane za jedną dobę pobytu.</p>
+        </div>
+
+        <div class="price-grid">
+          <article class="card price-card">
+            <h3>Domek 2-osobowy</h3>
+            <div class="price">140 zł <span>/ doba</span></div>
+            <p>Dla par lub dwóch osób szukających kameralnego wypoczynku.</p>
+            <ul class="list">
+              <li>Łazienka z prysznicem</li>
+              <li>TV, lodówka i czajnik</li>
+              <li>Naczynia i sztućce</li>
+            </ul>
+          </article>
+
+          <article class="card price-card featured">
+            <h3>Domek 4-osobowy</h3>
+            <div class="price">280 zł <span>/ doba</span></div>
+            <p>Najczęściej wybierany wariant dla rodzin i małych grup.</p>
+            <ul class="list">
+              <li>Aneks kuchenny</li>
+              <li>Kuchenka gazowa</li>
+              <li>Duża ława przed domkiem</li>
+            </ul>
+          </article>
+
+          <article class="card price-card">
+            <h3>Domek 5-osobowy</h3>
+            <div class="price">350 zł <span>/ doba</span></div>
+            <p>Więcej miejsca dla rodziny lub grupy znajomych.</p>
+            <ul class="list">
+              <li>Aneks kuchenny</li>
+              <li>Pełne podstawowe wyposażenie</li>
+              <li>Możliwość pobytu ze zwierzęciem</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="section-header">
+          <div class="section-kicker">Atrakcje</div>
+          <h2>Aktywny wypoczynek bez dodatkowych opłat</h2>
+          <p>
+            Dla gości przygotowano wiele atrakcji rekreacyjnych, rodzinnych i sportowych.
+          </p>
+        </div>
+
+        <div class="card activities">
+          <ul class="activities-grid">
+            <li>Plac zabaw z trampoliną, huśtawkami, zjeżdżalniami i piaskownicą</li>
+            <li>Boisko do koszykówki, siatkówki i mini boisko do piłki nożnej</li>
+            <li>Stół do bilarda, tenis stołowy, badminton i mega szachy</li>
+            <li>Miejsce na ognisko z wiatą, ławkami i przygotowanym drewnem</li>
+            <li>Własna plaża z kąpieliskami dla dzieci i dorosłych</li>
+            <li>Gry planszowe, karty, książki oraz przestrzeń do spokojnego wypoczynku</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="galeria">
+      <div class="container">
+        <div class="section-header">
+          <div class="section-kicker">Galeria</div>
+          <h2>Galeria</h2>
+          <p>
+            Zobacz zdjęcia ośrodka, domków, plaży, pomostu oraz miejsc przygotowanych
+            do wypoczynku i rekreacji nad Jeziorakiem.
+          </p>
+        </div>
+
+        <div class="gallery-grid">
+          <div class="gallery-item" style="--gallery-img: url('img/domki.jpg')">Domki</div>
+          <div class="gallery-item" style="--gallery-img: url('img/plaza.jpg')">Plaża</div>
+          <div class="gallery-item" style="--gallery-img: url('img/jeziorak.jpg')">Jeziorak</div>
+          <div class="gallery-item" style="--gallery-img: url('img/placzabaw.jpg')">Plac zabaw</div>
+          <div class="gallery-item" style="--gallery-img: url('img/bar.jpg')">Bar</div>
+          <div class="gallery-item" style="--gallery-img: url('img/pomost.jpg')">Pomost</div>
+          <div class="gallery-item" style="--gallery-img: url('img/ognisko.jpg')">Ognisko</div>
+          <div class="gallery-item" style="--gallery-img: url('img/rekreacja.jpg')">Rekreacja</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="kontakt">
+      <div class="container">
+        <div class="section-header">
+          <div class="section-kicker">Kontakt</div>
+          <h2>Zarezerwuj pobyt na wyspie</h2>
+          <p>Skontaktuj się z ośrodkiem telefonicznie lub mailowo.</p>
+        </div>
+
+        <div class="contact-grid">
+          <div class="card contact-card">
+            <h3>BOSMAN - Ośrodek Wypoczynkowy</h3>
+
+            <ul class="contact-list">
+              <li>
+                <strong>Adres</strong>
+                <span>Wyspa Wielka Żuława, 14-200 Iława</span>
+              </li>
+              <li>
+                <strong>Telefon stacjonarny</strong>
+                <a href="tel:+48896482854">0-89 648-28-54</a>
+              </li>
+              <li>
+                <strong>Telefon komórkowy</strong>
+                <a href="tel:+48604485919">604-485-919</a>
+              </li>
+              <li>
+                <strong>E-mail</strong>
+                <a href="mailto:bosman23@interia.eu">bosman23@interia.eu</a>
+              </li>
+              <li>
+                <strong>Sezon</strong>
+                <span>Od maja do końca września</span>
+              </li>
+              <li>
+                <strong>Numer konta</strong>
+                <span>45 1020 5040 0000 6402 0095 8488</span>
+              </li>
+            </ul>
+          </div>
+
+          <div class="map-box">
+            <iframe
+              src="https://www.google.com/maps?q=53.6110321,19.5533491&z=15&output=embed"
+              allowfullscreen=""
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade">
+            </iframe>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <p>BOSMAN © 2026 • Ośrodek wypoczynkowy na wyspie Wielka Żuława</p>
+    </div>
+  </footer>
+</body>
+</html>
